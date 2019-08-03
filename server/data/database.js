@@ -48,10 +48,9 @@ pool
     }));
 
 /**
- * In order to prevent leaking clients, we will export the
- * pool and connect every time we make a query, or use the
- * single query method for pools, which uses any available
- * client in the pool
+ * In order to prevent leaking clients, we will export methods
+ * to use on our pool; this will help facilitate debugging
+ * the entire pool and will not affect our functionality otherwise
  */
 
 module.exports = {
