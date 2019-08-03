@@ -54,4 +54,11 @@ pool
  * client in the pool
  */
 
-module.exports = pool;
+module.exports = {
+  query: (text, params, callback) => pool.query(text, params, callback),
+  getClient: (callback) => {
+    pool.connect((err, client, done) => {
+      callback(err, client, done);
+    });
+  },
+};
