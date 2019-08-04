@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Provider} from "react-redux"
 import PageContainer from './LandingPage/Wrappers/PageContainer.jsx'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
