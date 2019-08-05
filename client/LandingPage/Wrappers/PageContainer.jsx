@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '/Users/jacobbanks/Code/Team Lupin/popup/client/actions/actions.js';
+import * as actions from '/Users/jessicavaughan/Documents/Development/Codesmith/Projects/popup/client/actions/actions.js';
 import NavBar from '../Components/NavBar.jsx'
 import HeaderImage from '../Components/HeaderImage.jsx'
 import CardContainter from './CardCaontainer.jsx'

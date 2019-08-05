@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '/Users/jacobbanks/Code/Team Lupin/popup/client/Assets/covorphoto.jpg';
+import image from '/Users/jessicavaughan/Documents/Development/Codesmith/Projects/popup/client/Assets/covorphoto.jpg';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
