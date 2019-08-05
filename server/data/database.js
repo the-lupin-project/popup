@@ -13,6 +13,7 @@ const pool = new Pool({ connectionString: uri });
 
 pool
   .connect()
+  // .then(client => client.query('CREATE EXTENSION pgcrypto'))
   .then(client => client
     .query(`CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY NOT NULL,
@@ -21,7 +22,7 @@ pool
       email VARCHAR (255) NOT NULL,
       password VARCHAR (255) NOT NULL,
       role VARCHAR (255) NOT NULL
-    )`)
+    )`))
     .then(() => client.query(`CREATE TABLE IF NOT EXISTS events (
       id SERIAL PRIMARY KEY NOT NULL,
       title VARCHAR (255) NOT NULL,
@@ -54,7 +55,7 @@ pool
  */
 
 module.exports = {
-  query: (text, params, callback) => pool.query(text, params, callback),
+  query: (queryObj) => pool.query(queryObj),
   getClient: (callback) => {
     pool.connect((err, client, done) => {
       callback(err, client, done);
