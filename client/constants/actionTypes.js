@@ -3,4 +3,4 @@
 // add action type constants
 
 
-export const UPDATE_MODAL_STATE = 'UPDATE_MODAL_STATE';
+export const TOGGLE_MODAL = 'TOGGLE_MODAL';

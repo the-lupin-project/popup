@@ -1,16 +1,15 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  modal: false, // determines wheter our modal displays
+  modals: [], // false determines wheter our modal displays
 };
 
 const modalReducer = (state = initialState, action) => {
-
   switch (action.type) {
-    case types.UPDATE_MODAL_STATE: {
+    case types.TOGGLE_MODAL: {
       return {
         ...state,
-        modal: action.payload,
+        modals: state.modals.concat(action.payload),
       };
     }
     default:

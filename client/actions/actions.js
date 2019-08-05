@@ -3,7 +3,6 @@
 import * as types from '../constants/actionTypes.js'
 
 
-export const updateModalState = (value) => ({
-  type: types.UPDATE_MODAL_STATE,
-  payload: value,
+export const toggleModal = () => ({
+  type: types.TOGGLE_MODAL,
 });
