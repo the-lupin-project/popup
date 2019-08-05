@@ -13,6 +13,7 @@ const pool = new Pool({ connectionString: uri });
 
 pool
   .connect()
+  // .then(client => client.query('CREATE EXTENSION pgcrypto'))
   .then(client => client
     .query(`CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY NOT NULL,
@@ -37,15 +38,16 @@ pool
       price NUMERIC (6, 2) NOT NULL
     )`))
     .then(() => client.query(`CREATE TABLE IF NOT EXISTS user_events (
-      id SERIAL PRIMARY KEY NOT NULL,
-      user_id INTEGER REFERENCES users(id),
-      event_id INTEGER REFERENCES events(id)
-    )`))
+        id SERIAL PRIMARY KEY NOT NULL,
+        user_id INTEGER REFERENCES users(id),
+        event_id INTEGER REFERENCES events(id)
+      )`))
     .then(() => client.release())
     .catch((e) => {
       client.release();
       console.log(e.stack);
-    }));
+    }))
+  .catch(e => console.log(e.stack));
 
 /**
  * In order to prevent leaking clients, we will export methods
@@ -54,7 +56,7 @@ pool
  */
 
 module.exports = {
-  query: (text, params, callback) => pool.query(text, params, callback),
+  query: (queryObj) => pool.query(queryObj),
   getClient: (callback) => {
     pool.connect((err, client, done) => {
       callback(err, client, done);
