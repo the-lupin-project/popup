@@ -22,7 +22,7 @@ pool
       email VARCHAR (255) NOT NULL,
       password VARCHAR (255) NOT NULL,
       role VARCHAR (255) NOT NULL
-    )`))
+    )`)
     .then(() => client.query(`CREATE TABLE IF NOT EXISTS events (
       id SERIAL PRIMARY KEY NOT NULL,
       title VARCHAR (255) NOT NULL,
@@ -38,15 +38,16 @@ pool
       price NUMERIC (6, 2) NOT NULL
     )`))
     .then(() => client.query(`CREATE TABLE IF NOT EXISTS user_events (
-      id SERIAL PRIMARY KEY NOT NULL,
-      user_id INTEGER REFERENCES users(id),
-      event_id INTEGER REFERENCES events(id)
-    )`))
+        id SERIAL PRIMARY KEY NOT NULL,
+        user_id INTEGER REFERENCES users(id),
+        event_id INTEGER REFERENCES events(id)
+      )`))
     .then(() => client.release())
     .catch((e) => {
       client.release();
       console.log(e.stack);
-    }));
+    }))
+  .catch(e => console.log(e.stack));
 
 /**
  * In order to prevent leaking clients, we will export methods

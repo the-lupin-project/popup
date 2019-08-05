@@ -23,7 +23,7 @@ const userController = {
       const hashedPass = bcrypt.hashSync(password, salt);
 
       const query = {
-        text: 'INSERT INTO users(first_name, last_name, email, password, role) VALUES($1, $2, $3, $4, $5) RETURNING id',
+        text: 'INSERT INTO users(first_name, last_name, email, password, role) VALUES($1, $2, $3, $4, $5) RETURNING *',
         values: [firstName, lastName, email, hashedPass, 'user'],
       };
       // query will return an array of ojects (in this case only 1 object will be returned)
@@ -34,10 +34,11 @@ const userController = {
         if (result.rows.length === 0) {
           return next({
             log: 'Database error creating user',
-            message: { err: 'Database uncaught error creating user' };
+            message: { err: 'Database uncaught error creating user' },
           });
         }
         res.locals.userId = result.rows[0].id;
+        res.locals.user = result.rows[0];
       } catch (err) {
         return next({
           log: 'Database error creating user',
@@ -76,27 +77,31 @@ const userController = {
         // no user found
         if (result.rows.length === 0) {
           return next({
-            log: 'Database error verifying user',
+            log: 'Database error verifying user - incorrect email',
             message: { err: 'Incorrect email' },
           });
         }
         // otherwise, hash the password and compare to the DB's record
-        const hashedPw = response.rows[0].password;
-
-        bcrypt.compare(password, hashedPw, (err, result) => {
+        const hashedPw = result.rows[0].password;
+        
+        bcrypt.compare(password, hashedPw, (err, data) => {
           // correct password
-          if (result) {
-            res.locals.userId = response.rows[0].id;
+          if (data) {
+            res.locals.user = result.rows[0];
+            res.locals.userId = result.rows[0].id;
+            console.log(`setting userId to ${res.locals.userId}`);
+          } else {
+            return next({
+              log: 'Database error verifying user - incorrect password',
+              message: { err: 'Incorrect password' },
+            });
           }
-          return next({
-            log: 'Database error verifying user',
-            message: { err: 'Incorrect password' },
-          });
+          return next();
         });
       } catch (err) {
         return next({
           log: 'Database error verifying user',
-            message: { err: 'Database unknown error verifying user' },
+          message: { err: 'Database unknown error verifying user' },
         });
       }
     } else { // missing login info, can't authenticate
@@ -105,8 +110,6 @@ const userController = {
         message: { err: 'Missing credentials' },
       });
     }
-
-    return next();
   },
   /**
    * updateRole - updates the current users role to organizer
@@ -114,15 +117,14 @@ const userController = {
    * @param res - contains the userId in locals
    */
   updateRole: async (req, res, next) => {
-    // NOTE: we assume that the user has been verified prior to changing their role
-    // thus, we expect the response to contain the user's id
-    if (!res.locals.userId) {
+    // NOTE: we use the cookie's ssid to find the user
+    if (!req.cookies.ssid) {
       return next({
         log: 'Error updating role',
         message: { err: 'Invalid user to update' },
       });
     }
-    const { userId } = res.locals;
+    const userId = req.cookies.ssid;
     const query = {
       text: 'UPDATE users SET role = $1 WHERE id = $2 RETURNING role',
       values: ['organizer', userId],
@@ -130,7 +132,7 @@ const userController = {
 
     try {
       const result = await db.query(query);
-      
+
       // no users were updated!
       if (!result.rows.length) {
         return next({
@@ -139,15 +141,15 @@ const userController = {
         });
       }
       // user found and updated
-      res.locals.role = response.rows[0].role;
+      res.locals.role = result.rows[0].role;
+
+      return next();
     } catch (err) {
       return next({
         log: 'Database error updating role',
         message: { err: 'Could not find user to update' },
       });
     }
-
-    return next();
   },
 };
 

@@ -1,4 +1,6 @@
-const mongoose, { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
 
 const sessionSchema = new Schema({
   cookieId: {
@@ -10,7 +12,7 @@ const sessionSchema = new Schema({
     type: Date,
     expires: 120,
     default: Date.now,
-  }
+  },
 });
 
 module.exports = mongoose.model('Session', sessionSchema);
