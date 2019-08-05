@@ -1,14 +1,17 @@
 const path = require('path');
 const express = require('express');
+const http = require('http');
+const fs = require('fs');
 const bodyParser = require('body-parser');
 
 const app = express();
 
 // require routers
-
+const apiRouter = require('./routes/api');
 
 
 const PORT = 3000;
+
 /**
  * handle parsing request body
  */
@@ -26,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * define route handlers
  */
-
+app.use('/api', apiRouter);
 
 
  // respond with main app
