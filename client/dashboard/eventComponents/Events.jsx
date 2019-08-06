@@ -4,15 +4,18 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import EventCard from './EventCard.jsx';
 
 const Events = (props) => {
-  // const hostedEventsArr = [];
-  // for (let i = 0; i < Data.length; i++) {
-  //   hostedEventsArr.push();
-  // }
+  console.log(JSON.stringify(props.events));
+  const eventsArr = [];
+  for (let i = 0; i < props.events.length; i++) {
+    hostedEventsArr.push(<EventCard key={i} 
+      {...props.events[i]}
+    />);
+  }
 
   return (
     <div className='eventsWrapper'>
       {/* <p>hello from inside of events container</p> */}
-      <h3>Events You Are Attending</h3>
+      <h3>Events In Your Area</h3>
       <EventCard />
       <EventCard />
       <EventCard />

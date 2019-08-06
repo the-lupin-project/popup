@@ -4,10 +4,11 @@ import { ButtonGroup } from 'reactstrap';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const EventCard = (props) => {
+  console.log(props);
   return (
     <div>
       <Card body className="eventCard">
-        <CardTitle>Event Title</CardTitle>
+        <CardTitle>title</CardTitle>
         <div className="eventData">
           <CardSubtitle>host</CardSubtitle>
           <CardSubtitle>location</CardSubtitle>

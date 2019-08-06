@@ -51,3 +51,8 @@ export const createNewUser = (firstName, lastName, pass, email) => ({
   types: types.CREATE_NEW_USER,
   payload: [firstName, lastName, email, pass],
 });
+
+export const getEvents = (events) => ({
+  types: types.GET_EVENTS,
+  payload: events,
+});
