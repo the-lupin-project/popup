@@ -8,7 +8,7 @@ const NavBar = (props) => (
     <input type='text' id='username' className='login'></input>
     <input type='text' id='password'className='login'></input>
     <Button id='login' color="primary">Log In</Button>{' '}
-    <Button id='signup' color="primary">Sign Up</Button>{' '}
+    <Button id='signup' onClick={props.showLoginMenu} color="primary">Sign Up</Button>{' '}
     </span>
   </div>
 )

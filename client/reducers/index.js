@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 // import all reducers here
-import modalReducer from './reducers';
+import modalReducer from './modalreducers';
 import userReducer from './userReducer.js';
 import eventsReducer from './eventsReducer';
 
