@@ -3,6 +3,11 @@
 import * as types from '../constants/actionTypes.js'
 
 
-export const toggleModal = () => ({
-  type: types.TOGGLE_MODAL,
+export const showModal = (modalType) => ({
+  type: types.SHOW_MODAL,
+  modalType,
+});
+
+export const hideModal = () => ({
+  type: types.HIDE_MODAL,
 });
