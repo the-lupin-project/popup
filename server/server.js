@@ -1,19 +1,32 @@
 const path = require('path');
 const express = require('express');
+// const http = require('http');
+// const fs = require('fs');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
+const mongoUri = `mongodb+srv://student:ilovetesting@cluster0-wpwug.mongodb.net/test`;
+mongoose.connect(mongoUri, { dbName: 'popups', useNewUrlParser: true }, (err) => {
+  if (err) console.log(err);
+  if (!err) console.log('Connected to MongoDB');
+});
 
 const app = express();
 
 // require routers
-
+const apiRouter = require('./routes/api');
+const authRouter = require('./routes/auth');
 
 
 const PORT = 3000;
+
 /**
  * handle parsing request body
  */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 
 /**
@@ -22,11 +35,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
 
 
-
 /**
  * define route handlers
  */
-
+app.use('/api', apiRouter);
+app.use('/auth', authRouter);
 
 
  // respond with main app
