@@ -6,7 +6,6 @@ import * as actions from '/Users/jessicavaughan/Documents/Development/Codesmith/
 import NavBar from '../Components/NavBar.jsx'
 import HeaderImage from '../Components/HeaderImage.jsx'
 import CardContainter from './CardCaontainer.jsx'
-import { connect } from 'react-redux';
 /* Bring in Specific Actions */
 import { showModal } from '../../actions/actions'
 /** Modal Type Constant */
