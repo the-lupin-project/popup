@@ -8,7 +8,7 @@ eventController.addEvent = async (req, res, next) => {
     // validate required information has been included in request 
     if (title && description && maxAttendees && host && location && cuisineType && start && end && date && price) {
         const query = {
-            text: `INSERT INTO events(title, description, max_attendees, host, location, cuisine_type, start, end, date, price) 
+            text: `INSERT INTO events(title, description, max_attendees, host, location, cuisine_type, start, "end", date, price) 
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *`,
             values: [title, description, maxAttendees, host, location, cuisineType, start, end, date, price],
         };

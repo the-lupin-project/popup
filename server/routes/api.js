@@ -8,5 +8,9 @@ router.get('/', eventController.findAllEvents, (req, res) => {
     res.status(200).json(res.locals.events);
 });
 
+router.post('/newEvent', eventController.addEvent, (req, res) => {
+    res.status(200).json(res.locals.event);
+}) ;
+
 
 module.exports = router;
