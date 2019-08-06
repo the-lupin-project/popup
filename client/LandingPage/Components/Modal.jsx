@@ -1,4 +1,6 @@
 import React from 'react';
+
+// this is a custom modal built from scratch as a baseline modql for all other modals throughout the app. 
 class Modal extends React.Component {
   
     listenKeyboard(event) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
+// this is the event card used imported through reactstrap
 
 const EventCard = (props) => {
   return (

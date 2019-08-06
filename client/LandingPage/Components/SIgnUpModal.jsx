@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from './Modal.jsx';
-
+// see the modal container for information regarding how these props render thorugh the onclose method. 
 class SignUpModal extends React.Component {
   constructor(props) {
     super(props);
