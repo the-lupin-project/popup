@@ -1,0 +1,60 @@
+.dashboardWrapper {
+  display: flex;
+}
+
+.eventsWrapper {
+  flex: 70%;
+}
+
+.controlsWrapper {
+  flex: 30%;
+}
+
+.controlsWrapper button {
+  border-radius: 0;
+}
+
+.controlsWrapper .btn-block + .btn-block {
+  margin-top: 0;
+}
+
+.controlsWrapper h3 {
+  width: 200px;
+  margin: 1rem auto;
+}
+
+.hostedEvents {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hostedEvents button {
+  border-radius: 5px;
+}
+
+div .hostedEventCard {
+  border: none;
+}
+
+.eventsWrapper h3 {
+  margin: 1rem auto;
+  width: 360px;
+}
+
+.eventData {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  margin-right: 1em;
+}
+
+.eventCard .btn-group {
+  width: 50%;
+  margin: auto;
+}
+
+div .eventCard {
+  border-top: none;
+  border-left: none;
+}
