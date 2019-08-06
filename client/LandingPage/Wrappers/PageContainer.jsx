@@ -1,27 +1,45 @@
 import React from 'react';
+
+import NavBarContainer from '../Wrappers/NavBarContainer.jsx'
 import { connect } from 'react-redux';
 import * as actions from '/Users/jessicavaughan/Documents/Development/Codesmith/Projects/popup/client/actions/actions.js';
 import NavBar from '../Components/NavBar.jsx'
 import HeaderImage from '../Components/HeaderImage.jsx'
 import CardContainter from './CardCaontainer.jsx'
+import { connect } from 'react-redux';
+/* Bring in Specific Actions */
+import { showModal } from '../../actions/actions'
+/** Modal Type Constant */
+import { CREATE_EVENT_MODAL, SIGN_UP_MODAL } from '../../constants/modaltypes.js';
 
-const mapStateToProps = store => ({
-  // add pertinent state here
-  modal: store.modals.modal,
-});
+export class PageContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.showLoginMenu = this.showLoginMenu.bind(this);
+    this.showCreateEventBox = this.showCreateEventBox.bind(this);
+  }
+
+  showLoginMenu() {
+    this.props.showModal(SIGN_UP_MODAL);
+  }
+
+  showCreateEventBox() {
+    this.props.showModal(SIGN_UP_MODAL)
+  }
+
+  render() {
+    return (
+      <div>
+      <NavBarContainer showLoginMenu={this.showLoginMenu}/>
+      <HeaderImage showCreateEventBox={this.showCreateEventBox}/>
+      <CardContainter />
+    </div>
+    );
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
-  toggleModal: () => {
-dispatch(actions.toggleModal())
-  }
-})
+  showModal: modelType => dispatch(showModal(modelType))
+});
 
-const PageContainer = (props) => (
-  <div>
-    <NavBar />
-    <HeaderImage isOpen={props.modal} toggleModal={props.updateModalState} />
-    <CardContainter />
-  </div>
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(PageContainer);
+export default connect(null, mapDispatchToProps)(PageContainer);
