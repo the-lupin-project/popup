@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-
+// these our are buttons used throughout the app imported through reactstrap
 export default class Buttons extends React.Component {
   render() {
     return (
