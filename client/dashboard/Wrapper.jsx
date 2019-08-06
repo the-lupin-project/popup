@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import ControlPanel from './controlComponents/Controls.jsx';
 import Events from './eventComponents/Events.jsx';
+import  {getEvents} from '../actions/actions';
 
+const mapStateToProps = store => ({
+  events: store.events.events,
+});
 
+const getEventsAndDispatch = () => dispatch => fetch('/api')
+  .then(events => dispatch(getEvents(events)));
+
+const mapDispatchToProps = dispatch => ({
+  getEvents: () => dispatch(getEventsAndDispatch),
+});
 class Wrapper extends Component {
-  constructor(props) {
-    super(props);
+
+  componentDidMount() {
+    this.props.getEvents();
   }
 
   render() {
@@ -15,10 +27,10 @@ class Wrapper extends Component {
       <div className="dashboardWrapper">
         {/* <p>hello from inside the wrapper</p> */}
         <ControlPanel />
-        <Events />
+        <Events events={this.props.events} />
       </div>
     )
   }
 }
 
-export default Wrapper;
+export default connect(mapStateToprops, mapDispatchToProps)(Wrapper);
